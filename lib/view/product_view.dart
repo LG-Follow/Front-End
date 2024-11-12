@@ -102,7 +102,7 @@ class ProductView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Image.asset(
-                'assets/images/lg_logo.png',
+                'assets/images/lg_follow_logo.png',
                 height: 40,
               ),
             ),

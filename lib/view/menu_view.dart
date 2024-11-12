@@ -28,7 +28,7 @@ class MenuView extends StatelessWidget {
             child: Image.asset(
               'assets/images/lg_follow_logo.png',
               height: 70,
-              width: 170,// 이미지의 최대 높이 설정
+              width: 170,
             ),
           ),
         ),
@@ -90,7 +90,7 @@ class MenuView extends StatelessWidget {
             ),
             SizedBox(height: 16),
 
-            // "라이프" 섹션을 카드 형식으로 만들고 아이콘을 버튼으로 표시
+
             Card(
               color: Colors.white,
               elevation: 4,

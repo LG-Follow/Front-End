@@ -21,7 +21,7 @@ class LoginView extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft, // Image.asset을 좌측 정렬
               child: Image.asset(
-                'assets/images/lg_logo.png', // LG 로고 이미지 경로
+                'assets/images/lg_follow_logo.png', // LG 로고 이미지 경로
                 width: 150,
                 height: 50,
               ),

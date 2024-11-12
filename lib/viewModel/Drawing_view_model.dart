@@ -17,6 +17,13 @@ class DrawingViewModel with ChangeNotifier {
   Color get currentColor => _currentColor;
   double get currentStrokeWidth => _currentStrokeWidth;
 
+  final String? baseUrl = dotenv.env['BASE_URL'];
+
+  // Base URL과 endpoint를 조합하여 URL 생성
+  Uri _buildUri(String endpoint) {
+    return Uri.parse('$baseUrl$endpoint');
+  }
+
   void startDrawing() {
     _isDrawing = true;
     _paths.add([]); // Start a new path
@@ -61,16 +68,25 @@ class DrawingViewModel with ChangeNotifier {
 
       final picture = pictureRecorder.endRecording();
       final image = await picture.toImage(size.width.toInt(), size.height.toInt());
+      print(image);
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      print(byteData);
       final base64Image = base64Encode(byteData!.buffer.asUint8List());
+      print(base64Image);
 
-      final url = dotenv.env['SERVER_URL'];
+      final url = _buildUri('/image/upload');
       if (url != null) {
+        print(base64Image);
+
         final response = await http.post(
-          Uri.parse(url),
+          url,
           headers: {"Content-Type": "application/json"},
-          body: jsonEncode({"drawing": base64Image}),
+          body: jsonEncode({
+            "user_id": 1,
+            "image": base64Image,
+          }),
         );
+        print(response.statusCode);
 
         if (response.statusCode == 200) {
           print("Drawing sent successfully!");

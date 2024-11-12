@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewModel/sketch_home_view_model.dart';
 import '../model/sketch_home.dart';
-import '../view/song_home_view.dart';
+import '../view/song_list_view.dart';
 import '../view/Drawing_view.dart';
 
 class SketchHomeView extends StatelessWidget {
@@ -38,62 +38,64 @@ class SketchHomeView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  _buildTextButton('잠잘 때'),
-                  SizedBox(width: 8),
-                  _buildTextButton('에너지 충전'),
-                  SizedBox(width: 8),
-                  _buildTextButton('행복한 기분'),
-                  SizedBox(width: 8),
-                  _buildTextButton('운동'),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SongHomeView()),
-                );
-              },
-              child: Row(
-                children: [
-                  Text(
-                    '빠른 선곡',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      _buildTextButton('잠잘 때'),
+                      SizedBox(width: 8),
+                      _buildTextButton('에너지 충전'),
+                      SizedBox(width: 8),
+                      _buildTextButton('행복한 기분'),
+                      SizedBox(width: 8),
+                      _buildTextButton('운동'),
+                    ],
                   ),
-                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
-                ],
-              ),
-            ),
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: viewModel.quickSelectItems.map((item) => _buildCard(item)).toList(),
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Text(
-                  '임시 저장',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
+                SizedBox(height: 16),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SongListView()),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        '빠른 선곡',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: viewModel.quickSelectItems.map((item) => _buildCard(item)).toList(),
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Text(
+                      '임시 저장',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: viewModel.tempStorageItems.map((item) => Expanded(child: _buildCard(item))).toList(),
+                ),
               ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: viewModel.tempStorageItems.map((item) => Expanded(child: _buildCard(item))).toList(),
-            )],
             ),
           ),
         ],
       ),
       bottomSheet: GestureDetector(
+        behavior: HitTestBehavior.opaque, // 하단 바 영역에서만 터치 인식
         onVerticalDragUpdate: (details) {
           if (details.primaryDelta! < -10) { // 위로 드래그 시 페이지 로드
             showModalBottomSheet(
@@ -113,13 +115,14 @@ class SketchHomeView extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-            boxShadow:[
+            boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.2),
                 spreadRadius: 3,
                 blurRadius: 10,
                 offset: Offset(0, -3),
-              ),]
+              ),
+            ],
           ),
           child: Center(
             child: Row(

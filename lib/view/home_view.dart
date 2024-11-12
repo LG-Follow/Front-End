@@ -62,10 +62,9 @@ class HomeView extends StatelessWidget {
             Row(
               children: [
                 ElevatedButton(
-
                   style: ElevatedButton.styleFrom(
                     elevation: 4,
-                    shadowColor: Colors.white38, // 입체감
+                    shadowColor: Colors.white38,
                     backgroundColor: Colors.white,
                     side: BorderSide(color: Colors.black, width: 2),
                   ),
@@ -79,7 +78,7 @@ class HomeView extends StatelessWidget {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 4,
-                    shadowColor: Colors.white38, // 입체감
+                    shadowColor: Colors.white38,
                     backgroundColor: Colors.white,
                     side: BorderSide(color: Colors.black, width: 2),
                   ),
@@ -102,13 +101,13 @@ class HomeView extends StatelessWidget {
                   crossAxisSpacing: 8,
                   childAspectRatio: 1.5,
                 ),
-                itemCount: viewModel.devices.length + 1, // 가전 제품 목록 + '가전 추가' 버튼
+                itemCount: viewModel.devices.length + 1,
                 itemBuilder: (context, index) {
                   if (index < viewModel.devices.length) {
                     final device = viewModel.devices[index];
                     return _buildDeviceCard(device, index, viewModel);
                   } else {
-                    return _buildAddDeviceCard(context); // 여기에서 context 전달
+                    return _buildAddDeviceCard(context);
                   }
                 },
               ),
@@ -169,7 +168,7 @@ class HomeView extends StatelessWidget {
   // 가전 제품 카드 생성
   Widget _buildDeviceCard(HomeDeviceModel device, int index, HomeViewModel viewModel) {
     return Card(
-      elevation: 4, // 입체감
+      elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
         side: BorderSide(color: Colors.black),
@@ -199,7 +198,11 @@ class HomeView extends StatelessWidget {
               children: [
                 Expanded(
                   child: IconButton(
-                    icon: Icon(device.isOn ? Icons.power_settings_new : Icons.power_off_outlined),
+                    icon: Image.asset(
+                      device.isOn ? 'assets/images/on.png' : 'assets/images/off.png',
+                      width: 30,
+                      height: 30,
+                    ),
                     onPressed: () => viewModel.toggleDevicePower(index),
                   ),
                 ),
@@ -222,10 +225,10 @@ class HomeView extends StatelessWidget {
   Widget _buildAddDeviceCard(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/add'); // 페이지 이동
+        Navigator.pushNamed(context, '/add');
       },
       child: Card(
-        elevation: 4, // 입체감
+        elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
           side: BorderSide(color: Colors.black),

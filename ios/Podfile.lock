@@ -7,30 +7,30 @@ PODS:
     - AppAuth/Core
   - camera_avfoundation (0.0.1):
     - Flutter
-  - Firebase/Auth (11.2.0):
+  - Firebase/Auth (11.4.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 11.2.0)
-  - Firebase/CoreOnly (11.2.0):
-    - FirebaseCore (= 11.2.0)
-  - firebase_auth (5.3.1):
-    - Firebase/Auth (= 11.2.0)
+    - FirebaseAuth (~> 11.4.0)
+  - Firebase/CoreOnly (11.4.0):
+    - FirebaseCore (= 11.4.0)
+  - firebase_auth (5.3.2):
+    - Firebase/Auth (= 11.4.0)
     - firebase_core
     - Flutter
-  - firebase_core (3.6.0):
-    - Firebase/CoreOnly (= 11.2.0)
+  - firebase_core (3.7.0):
+    - Firebase/CoreOnly (= 11.4.0)
     - Flutter
   - FirebaseAppCheckInterop (11.4.0)
-  - FirebaseAuth (11.2.0):
+  - FirebaseAuth (11.4.0):
     - FirebaseAppCheckInterop (~> 11.0)
     - FirebaseAuthInterop (~> 11.0)
-    - FirebaseCore (~> 11.0)
-    - FirebaseCoreExtension (~> 11.0)
+    - FirebaseCore (~> 11.4)
+    - FirebaseCoreExtension (~> 11.4)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/Environment (~> 8.0)
-    - GTMSessionFetcher/Core (~> 3.4)
+    - GTMSessionFetcher/Core (< 5.0, >= 3.4)
     - RecaptchaInterop (~> 100.0)
   - FirebaseAuthInterop (11.4.0)
-  - FirebaseCore (11.2.0):
+  - FirebaseCore (11.4.0):
     - FirebaseCoreInternal (~> 11.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/Logger (~> 8.0)
@@ -162,13 +162,13 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: 182c5b88630569df5acb672720534756c29b3358
   camera_avfoundation: dd002b0330f4981e1bbcb46ae9b62829237459a4
-  Firebase: 98e6bf5278170668a7983e12971a66b2cd57fc8c
-  firebase_auth: 0c77e299a8f2d1c74d1b1f6b78b3d4d802c19f47
-  firebase_core: 2bedc3136ec7c7b8561c6123ed0239387b53f2af
+  Firebase: cf1b19f21410b029b6786a54e9764a0cacad3c99
+  firebase_auth: 5defc54c120ef8d00a359ba787f1f3f521db59ce
+  firebase_core: f8c5b220a8f9c436fdbd075ae321cef3d96ef181
   FirebaseAppCheckInterop: 1b9643ae2f1ee214488caa2f8e32b7bc2f0f3735
-  FirebaseAuth: 2a198b8cdbbbd457f08d74df7040feb0a0e7777a
+  FirebaseAuth: c359af98bd703cbf4293eec107a40de08ede6ce6
   FirebaseAuthInterop: 9ac948965ac13ec9d8a080f39490ddb2bda30520
-  FirebaseCore: a282032ae9295c795714ded2ec9c522fc237f8da
+  FirebaseCore: e0510f1523bc0eb21653cac00792e1e2bd6f1771
   FirebaseCoreExtension: f1bc67a4702931a7caa097d8e4ac0a1b0d16720e
   FirebaseCoreInternal: 35731192cab10797b88411be84940d2beb33a238
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
@@ -190,4 +190,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

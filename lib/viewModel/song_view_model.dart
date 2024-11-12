@@ -11,6 +11,12 @@ class SongViewModel extends ChangeNotifier {
   bool _isPlaying = false;
   bool _isLoading = true;
 
+  final String? baseUrl = dotenv.env['BASE_URL'];
+
+  Uri _buildUri(String endpoint) {
+    return Uri.parse('$baseUrl$endpoint');
+  }
+
   List<Song> get songs => _songs;
   Song? get currentSong => _currentSong;
   String? get currentSongImage => _currentSongImage;
@@ -27,9 +33,15 @@ class SongViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final url = dotenv.env['SERVER_URL'];
+      final url = _buildUri('endpoint');
       if (url != null) {
-        final response = await http.get(Uri.parse('$url/songs'));
+        final response = await http.get(
+          url,
+          headers: {
+            'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': '69420',
+          }
+        );
         if (response.statusCode == 200) {
           List<dynamic> data = json.decode(response.body);
           _songs = data.map((json) => Song.fromJson(json)).toList();

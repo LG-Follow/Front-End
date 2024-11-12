@@ -7,8 +7,8 @@ class LoginViewModel with ChangeNotifier {
   bool _isPasswordVisible = false;
 
 
-  String emailOrPhone = 'alsrb595@naver.com';
-  String password = 'bigguy';
+  String emailOrPhone = '123';
+  String password = '123';
 
   bool get isPasswordVisible => _isPasswordVisible;
 

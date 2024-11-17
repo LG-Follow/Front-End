@@ -17,6 +17,7 @@ import 'package:lg_follow/viewModel/sketch_home_view_model.dart';
 import 'package:lg_follow/viewModel/song_view_model.dart';
 import 'package:lg_follow/viewModel/Drawing_view_model.dart';
 import 'package:lg_follow/view/Drawing_view.dart';
+import 'package:lg_follow/viewModel/Temp_view_model.dart';
 
 Future<void> main() async {
   // .env 파일 로드
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SketchViewModel()),
         ChangeNotifierProvider(create: (_) => SongViewModel()),
         ChangeNotifierProvider(create: (_) => DrawingViewModel()),
+        ChangeNotifierProvider(create: (_) => TempViewModel()),
 
 
       ],

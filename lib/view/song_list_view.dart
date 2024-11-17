@@ -12,7 +12,13 @@ class SongListView extends StatelessWidget {
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text('빠른 선곡', style: TextStyle(color: Colors.black)),
+        title: Align(
+          alignment: Alignment.centerLeft, // 왼쪽 정렬
+          child: Text(
+            '빠른 선곡',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),

@@ -4,6 +4,7 @@ import '../viewModel/sketch_home_view_model.dart';
 import '../model/sketch_home.dart';
 import '../view/song_list_view.dart';
 import '../view/Drawing_view.dart';
+import 'Temp_view.dart';
 
 class SketchHomeView extends StatelessWidget {
   @override
@@ -76,7 +77,14 @@ class SketchHomeView extends StatelessWidget {
                   children: viewModel.quickSelectItems.map((item) => _buildCard(item)).toList(),
                 ),
                 SizedBox(height: 16),
-                Row(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TempDrawing()),
+                    );
+                  },
+                child: Row(
                   children: [
                     Text(
                       '임시 저장',
@@ -84,6 +92,7 @@ class SketchHomeView extends StatelessWidget {
                     ),
                     Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
                   ],
+                ),
                 ),
                 SizedBox(height: 8),
                 Row(

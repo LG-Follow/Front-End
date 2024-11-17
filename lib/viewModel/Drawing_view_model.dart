@@ -1,8 +1,9 @@
-import 'dart:convert';
 import 'dart:ui' as ui;
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import '../model/Point.dart';
 import '../model/drawing_painter.dart';
 
@@ -19,14 +20,13 @@ class DrawingViewModel with ChangeNotifier {
 
   final String? baseUrl = dotenv.env['BASE_URL'];
 
-  // Base URL과 endpoint를 조합하여 URL 생성
   Uri _buildUri(String endpoint) {
     return Uri.parse('$baseUrl$endpoint');
   }
 
   void startDrawing() {
     _isDrawing = true;
-    _paths.add([]); // Start a new path
+    _paths.add([]);
     notifyListeners();
   }
 
@@ -38,7 +38,7 @@ class DrawingViewModel with ChangeNotifier {
   void addPoint(Offset offset) {
     if (_isDrawing && _paths.isNotEmpty) {
       _paths.last.add(Point(offset, _currentColor, _currentStrokeWidth));
-      notifyListeners(); // Update UI in real-time
+      notifyListeners();
     }
   }
 
@@ -61,38 +61,34 @@ class DrawingViewModel with ChangeNotifier {
     try {
       final pictureRecorder = ui.PictureRecorder();
       final canvas = Canvas(pictureRecorder);
-      final size = Size(400, 600); // Define canvas size
+      final size = Size(400, 600);
 
       final painter = DrawingPainter(_paths, repaint: this);
       painter.paint(canvas, size);
 
       final picture = pictureRecorder.endRecording();
       final image = await picture.toImage(size.width.toInt(), size.height.toInt());
-      print(image);
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      print(byteData);
-      final base64Image = base64Encode(byteData!.buffer.asUint8List());
-      print(base64Image);
+      final pngBytes = byteData!.buffer.asUint8List();
 
       final url = _buildUri('/image/upload');
-      if (url != null) {
-        print(base64Image);
-
-        final response = await http.post(
-          url,
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode({
-            "user_id": 1,
-            "image": base64Image,
-          }),
+      final request = http.MultipartRequest('POST', url)
+        ..fields['user_id'] = '1' // user_id 필드 추가
+        ..files.add(
+          http.MultipartFile.fromBytes(
+            'image',
+            pngBytes,
+            filename: 'drawing.png',
+            contentType: MediaType('image', 'png'),
+          ),
         );
-        print(response.statusCode);
 
-        if (response.statusCode == 200) {
-          print("Drawing sent successfully!");
-        } else {
-          print("Failed to send drawing: ${response.statusCode}");
-        }
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        print("Drawing sent successfully!");
+      } else {
+        print("Failed to send drawing: ${response.statusCode}");
       }
     } catch (e) {
       print("Error sending drawing: $e");

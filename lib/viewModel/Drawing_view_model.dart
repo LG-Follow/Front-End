@@ -18,7 +18,7 @@ class DrawingViewModel with ChangeNotifier {
   Color get currentColor => _currentColor;
   double get currentStrokeWidth => _currentStrokeWidth;
 
-  final String? baseUrl = dotenv.env['BASE_URL'];
+  final String? baseUrl = dotenv.env['BASEURL'];
 
   Uri _buildUri(String endpoint) {
     return Uri.parse('$baseUrl$endpoint');
@@ -72,6 +72,7 @@ class DrawingViewModel with ChangeNotifier {
       final pngBytes = byteData!.buffer.asUint8List();
 
       final url = _buildUri('/image/upload');
+      print(url);
       final request = http.MultipartRequest('POST', url)
         ..fields['user_id'] = '1' // user_id 필드 추가
         ..files.add(

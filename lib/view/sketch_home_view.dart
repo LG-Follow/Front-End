@@ -96,7 +96,7 @@ class SketchHomeView extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 Row(
-                  children: viewModel.tempStorageItems.map((item) => Expanded(child: _buildCard(item))).toList(),
+                  children: viewModel.tempStorageItems.take(1).map((item) => Expanded(child: _buildCard(item))).toList(),
                 ),
               ],
             ),

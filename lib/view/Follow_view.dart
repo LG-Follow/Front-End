@@ -41,9 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     SizedBox(height: 8),
                     // 사용자 추적 사운드 텍스트
                     Text(
-                      '사용자 추적 사운드',
+                      'Follow your Experience',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 12,
                         color: Colors.black54,
                       ),
                       textAlign: TextAlign.center,

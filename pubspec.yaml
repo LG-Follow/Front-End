@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.6
 
   firebase_core: ^3.3.0 # firebase를 사용하기 위한 플러그인
-  firebase_auth: ^5.1.4 # 앱에 authentication 기능을 추가하기 위한 플러그인
+  firebase_auth: ^5.2.0 # 앱에 authentication 기능을 추가하기 위한 플러그인
   google_sign_in: ^6.2.1 # authentication에서 제공해주는 기능 중 구글 로그인을 위한 플러그인
   http: ^1.2.2
   provider: ^6.1.2

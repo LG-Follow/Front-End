@@ -7,13 +7,14 @@ class SongListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // 전체 배경 색상을 흰색으로 설정
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
         title: Align(
-          alignment: Alignment.centerLeft, // 왼쪽 정렬
+          alignment: Alignment.centerLeft,
           child: Text(
             '빠른 선곡',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -43,7 +44,7 @@ class SongListView extends StatelessWidget {
                   itemCount: viewModel.songs.length,
                   itemBuilder: (context, index) {
                     Song song = viewModel.songs[index];
-                    String imageUrl = 'assets/images/finger.png'; // 로컬 자산 이미지
+                    String imageUrl = song.songUrl; // 서버로부터 받은 이미지 URL
 
                     return GestureDetector(
                       onTap: () => viewModel.selectSong(song, imageUrl),
@@ -52,23 +53,38 @@ class SongListView extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: Colors.grey.withOpacity(0.5), // 경계선 색상 추가
+                            width: 1.0,
+                          ),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 2,
+                              spreadRadius: 1,
                               blurRadius: 5,
-                              offset: Offset(2, 2),
+                              offset: Offset(2, 2), // elevation 효과 추가
                             ),
                           ],
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.play_circle_outline, size: 50, color: Colors.black),
+                            // 서버로부터 받은 이미지 표시
+                            Image.network(
+                              imageUrl,
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.cover,
+                            ),
                             SizedBox(height: 8),
                             Text(
-                              song.date,
+                              song.title,
                               style: TextStyle(fontSize: 12, color: Colors.black),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              song.duration,
+                              style: TextStyle(fontSize: 10, color: Colors.grey),
                             ),
                           ],
                         ),
@@ -127,7 +143,7 @@ class SongListView extends StatelessWidget {
       child: Row(
         children: [
           if (viewModel.currentSongImage != null)
-            Image.asset(
+            Image.network(
               viewModel.currentSongImage!,
               width: 50,
               height: 50,
@@ -144,7 +160,7 @@ class SongListView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                viewModel.currentSong?.date ?? '선택된 곡 없음',
+                viewModel.currentSong?.title ?? '선택된 곡 없음',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               Text(

@@ -1,16 +1,31 @@
 class Song {
+  final int id;
   final String title;
-  final String date;
-  final String audioUrl;
+  final String description;
+  final String songUrl; // songUrl 추가
+  final double size;
+  final String duration;
+  final String createdAt;
 
-  Song({required this.title, required this.date, required this.audioUrl});
+  Song({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.songUrl, // 생성자에 추가
+    required this.size,
+    required this.duration,
+    required this.createdAt,
+  });
 
-  // 서버로부터 JSON 데이터를 객체로 변환하는 생성자
   factory Song.fromJson(Map<String, dynamic> json) {
     return Song(
+      id: json['id'],
       title: json['title'],
-      date: json['date'],
-      audioUrl: json['audioUrl'],
+      description: json['description'],
+      songUrl: json['songUrl'], // JSON 필드 매핑
+      size: json['size'],
+      duration: json['duration'],
+      createdAt: json['createdAt'],
     );
   }
 }

@@ -7,7 +7,7 @@ class SongListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // 전체 배경 색상을 흰색으로 설정
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
@@ -44,7 +44,7 @@ class SongListView extends StatelessWidget {
                   itemCount: viewModel.songs.length,
                   itemBuilder: (context, index) {
                     Song song = viewModel.songs[index];
-                    String imageUrl = song.songUrl; // 서버로부터 받은 이미지 URL
+                    String imageUrl = song.imageUrl;
 
                     return GestureDetector(
                       onTap: () => viewModel.selectSong(song, imageUrl),
@@ -54,7 +54,7 @@ class SongListView extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: Colors.grey.withOpacity(0.5), // 경계선 색상 추가
+                            color: Colors.grey.withOpacity(0.5),
                             width: 1.0,
                           ),
                           boxShadow: [
@@ -62,14 +62,13 @@ class SongListView extends StatelessWidget {
                               color: Colors.grey.withOpacity(0.3),
                               spreadRadius: 1,
                               blurRadius: 5,
-                              offset: Offset(2, 2), // elevation 효과 추가
+                              offset: Offset(2, 2),
                             ),
                           ],
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // 서버로부터 받은 이미지 표시
                             Image.network(
                               imageUrl,
                               height: 50,

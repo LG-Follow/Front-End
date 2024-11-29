@@ -1,4 +1,4 @@
-// views/login_view.dart
+// 로그인 페이지
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewModel/Login_view_model.dart';

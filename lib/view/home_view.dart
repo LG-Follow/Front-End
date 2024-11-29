@@ -1,3 +1,4 @@
+// 로그인 후 홈 화면 페이지입니다.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewModel/home_view_model.dart';

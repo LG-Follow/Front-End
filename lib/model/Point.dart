@@ -1,3 +1,4 @@
+// 각 점의 정보를 캡슐화하고, 이를 JSON 형식으로 변환할 수 있도록 구현합니다.
 import 'package:flutter/material.dart';
 
 class Point {

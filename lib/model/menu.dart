@@ -1,4 +1,4 @@
-// models/menu_model.dart
+// 메뉴 모델
 class MenuModel {
   final String title;
   final List<String> items;

@@ -1,4 +1,4 @@
-// view model
+// 임시저장 관련 기능
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;

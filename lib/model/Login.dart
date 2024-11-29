@@ -1,4 +1,4 @@
-// models/login.dart
+// 로그인
 class Login {
   String emailOrPhone;
   String password;

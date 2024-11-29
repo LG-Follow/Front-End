@@ -1,3 +1,4 @@
+// 사용자가 그린 선과 색상을 화면에 렌더링하는 역할을 합니다.
 import 'package:flutter/material.dart';
 import '../model/Point.dart';
 

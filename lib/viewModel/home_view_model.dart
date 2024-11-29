@@ -1,4 +1,4 @@
-// viewModels/home_view_model.dart
+// 홈 화면에 생성되는 가전 정보, 아이콘 등 관리
 import 'package:flutter/material.dart';
 import '../model/home.dart';
 
@@ -32,7 +32,7 @@ class HomeViewModel extends ChangeNotifier {
       newDevice = HomeDeviceModel(name: 'TV', iconPath: 'assets/images/tv.png', isOn: false);
     } else if (scannedCode == 'robot_code') {
       newDevice = HomeDeviceModel(name: '로봇 청소기', iconPath: 'assets/images/robot.png', isOn: false);
-    } else if (scannedCode == 'speaker_code') {
+    } else if (scannedCode == 'speaker') {
       newDevice = HomeDeviceModel(name: '스피커', iconPath: 'assets/images/speaker.png', isOn: false);
     }
 

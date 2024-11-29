@@ -1,8 +1,8 @@
+// 사용자가 그림 그리는, 파일을 첨부하는 페이지입니다.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewModel/Drawing_view_model.dart';
 import '../model/drawing_painter.dart';
-import '../model/Point.dart';
 
 class DrawingView extends StatelessWidget {
   @override
@@ -53,6 +53,11 @@ class DrawingView extends StatelessWidget {
                   ),
                   child: Text('전송하기', style: TextStyle(color: Colors.white)),
                 ),
+                SizedBox(width: 8),
+                IconButton(
+                  icon: Icon(Icons.upload_file, color: Colors.black),
+                  onPressed: viewModel.pickImage, // 사진첩 접근
+                ),
               ],
             ),
             SizedBox(height: 16),
@@ -96,21 +101,44 @@ class DrawingView extends StatelessWidget {
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: GestureDetector(
-                  onPanStart: (details) {
-                    viewModel.startDrawing();
-                    viewModel.addPoint(details.localPosition);
-                  },
-                  onPanUpdate: (details) {
-                    viewModel.addPoint(details.localPosition);
-                  },
-                  onPanEnd: (_) {
-                    viewModel.stopDrawing();
-                  },
-                  child: CustomPaint(
-                    painter: DrawingPainter(viewModel.paths, repaint: viewModel),
-                    child: Container(),
-                  ),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onPanStart: (details) {
+                          viewModel.startDrawing();
+                          viewModel.addPoint(details.localPosition);
+                        },
+                        onPanUpdate: (details) {
+                          viewModel.addPoint(details.localPosition);
+                        },
+                        onPanEnd: (_) {
+                          viewModel.stopDrawing();
+                        },
+                        child: CustomPaint(
+                          painter: DrawingPainter(viewModel.paths, repaint: viewModel),
+                          child: Container(),
+                        ),
+                      ),
+                    ),
+                    if (viewModel.uploadedImages.isNotEmpty)
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: viewModel.uploadedImages.map((image) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.file(
+                                image,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),
@@ -159,4 +187,3 @@ class DrawingView extends StatelessWidget {
     );
   }
 }
-

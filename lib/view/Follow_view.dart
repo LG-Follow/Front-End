@@ -1,3 +1,4 @@
+// 앱 시작 화면, 로딩 화면입니다.
 import 'package:flutter/material.dart';
 import '../view/Login_view.dart';
 

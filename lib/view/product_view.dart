@@ -1,3 +1,4 @@
+// 가전 추가 선택 페이지
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewModel/product_view_model.dart';

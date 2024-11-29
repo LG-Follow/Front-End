@@ -1,3 +1,4 @@
+// 가전 추가 기능
 import 'package:flutter/material.dart';
 import '../model/product.dart';
 

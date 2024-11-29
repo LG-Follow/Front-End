@@ -1,4 +1,4 @@
-// viewModels/menu_view_model.dart
+// 메뉴를 구성하는 기능
 import 'package:flutter/material.dart';
 import '../model/menu.dart';
 

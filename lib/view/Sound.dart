@@ -1,3 +1,4 @@
+// 사운드 스케치 아이콘을 클릭하면 생성되는 로딩 화면
 import 'package:flutter/material.dart';
 import '../view/sketch_home_view.dart';
 

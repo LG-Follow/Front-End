@@ -1,4 +1,4 @@
-// views/menu_view.dart
+// 메뉴 페이지. 주요 기능인 사운드 스케치로 이동하기 위한 페이지
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewModel/menu_view_model.dart';

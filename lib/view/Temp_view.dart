@@ -1,4 +1,4 @@
-// view
+// 임시저장 페이지
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

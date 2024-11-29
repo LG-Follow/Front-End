@@ -1,4 +1,4 @@
-// models/home_device_model.dart
+// 가전 정보
 class HomeDeviceModel {
   final String name;
   final String iconPath;

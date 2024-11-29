@@ -1,4 +1,4 @@
-// model
+// 임시 저장
 
 class Drawing {
   final String title;

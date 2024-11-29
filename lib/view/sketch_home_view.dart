@@ -11,6 +11,11 @@ class SketchHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<SketchViewModel>(context);
 
+    // 초기 데이터 로드
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      viewModel.fetchQuickSelectItems();
+    });
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -72,9 +77,13 @@ class SketchHomeView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: viewModel.quickSelectItems.map((item) => _buildCard(item)).toList(),
+                Consumer<SketchViewModel>(
+                  builder: (context, viewModel, child) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: viewModel.quickSelectItems.map((item) => _buildCard(item)).toList(),
+                    );
+                  },
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
@@ -84,19 +93,22 @@ class SketchHomeView extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => TempDrawing()),
                     );
                   },
-                child: Row(
-                  children: [
-                    Text(
-                      '임시 저장',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
-                  ],
-                ),
+                  child: Row(
+                    children: [
+                      Text(
+                        '임시 저장',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 8),
                 Row(
-                  children: viewModel.tempStorageItems.take(1).map((item) => Expanded(child: _buildCard(item))).toList(),
+                  children: viewModel.tempStorageItems
+                      .take(1)
+                      .map((item) => Expanded(child: _buildCard(item)))
+                      .toList(),
                 ),
               ],
             ),
@@ -104,9 +116,9 @@ class SketchHomeView extends StatelessWidget {
         ],
       ),
       bottomSheet: GestureDetector(
-        behavior: HitTestBehavior.opaque, // 하단 바 영역에서만 터치 인식
+        behavior: HitTestBehavior.opaque,
         onVerticalDragUpdate: (details) {
-          if (details.primaryDelta! < -10) { // 위로 드래그 시 페이지 로드
+          if (details.primaryDelta! < -10) {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
@@ -120,7 +132,7 @@ class SketchHomeView extends StatelessWidget {
           }
         },
         child: Container(
-          height: 50, // 드래그 핸들 높이
+          height: 50,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
@@ -144,7 +156,7 @@ class SketchHomeView extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  "위로 드래그하여 시작하기", // 드래그 핸들에 설명 텍스트 추가
+                  "위로 드래그하여 시작하기",
                   style: TextStyle(color: Colors.black, fontSize: 12),
                 ),
               ],
@@ -179,7 +191,6 @@ class SketchHomeView extends StatelessWidget {
     );
   }
 
-  // 텍스트 버튼 생성 함수
   Widget _buildTextButton(String label) {
     return ElevatedButton(
       onPressed: () {},
@@ -191,7 +202,6 @@ class SketchHomeView extends StatelessWidget {
     );
   }
 
-  // 이미지 카드 생성 함수
   Widget _buildCard(CardItem item) {
     return Card(
       color: Colors.white,
@@ -202,7 +212,9 @@ class SketchHomeView extends StatelessWidget {
       elevation: 4,
       child: Column(
         children: [
-          Image.asset(item.imagePath, width: 100, height: 100, fit: BoxFit.cover),
+          item.isLocal
+              ? Image.asset(item.imageUrl, width: 100, height: 100, fit: BoxFit.cover)
+              : Image.network(item.imageUrl, width: 100, height: 100, fit: BoxFit.cover),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -214,4 +226,5 @@ class SketchHomeView extends StatelessWidget {
       ),
     );
   }
+
 }

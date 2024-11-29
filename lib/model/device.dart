@@ -1,4 +1,4 @@
-// model/device.dart
+// 가전
 class Device {
   final String id;
   final String name;

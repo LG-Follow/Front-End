@@ -45,11 +45,12 @@ class MenuView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '정민규 님',
+              '김민근 님',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             Container(
+              width: MediaQuery.of(context).size.width - 8.0, // 8px 만큼 줄임
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Colors.grey.shade200,
@@ -88,6 +89,7 @@ class MenuView extends StatelessWidget {
                 ],
               ),
             ),
+
             SizedBox(height: 16),
 
 

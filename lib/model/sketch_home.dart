@@ -1,4 +1,3 @@
-// JSON 데이터를 받아서 객체를 생성할 수 있는 fromJson 생성자를 제공합니다. (사운드스케치 홈화면 관리)
 class CardItem {
   final String title;
   final String imageUrl;
@@ -7,14 +6,16 @@ class CardItem {
   CardItem({
     required this.title,
     required this.imageUrl,
-    this.isLocal = false,
+    required this.isLocal,
   });
 
   factory CardItem.fromJson(Map<String, dynamic> json) {
+    final imageUrl = json['image_url'] ?? 'assets/images/temp_image.png';
     return CardItem(
       title: json['title'] ?? 'Unknown Title',
-      imageUrl: json['imageurl'] ?? 'assets/images/temp_image.png',
-      isLocal: false,
+      imageUrl: imageUrl,
+      isLocal: !imageUrl.startsWith('http'), // HTTP/HTTPS로 시작하지 않으면 로컬로 간주
     );
   }
 }
+

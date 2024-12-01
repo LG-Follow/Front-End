@@ -77,11 +77,14 @@ class SketchHomeView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+                // 빠른 선곡 리스트
                 Consumer<SketchViewModel>(
                   builder: (context, viewModel, child) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: viewModel.quickSelectItems.map((item) => _buildCard(item)).toList(),
+                      children: viewModel.quickSelectItems
+                          .map((item) => Expanded(child: _buildTempCard(item)))
+                          .toList(),
                     );
                   },
                 ),
@@ -104,10 +107,11 @@ class SketchHomeView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+                // 임시 저장 리스트
                 Row(
                   children: viewModel.tempStorageItems
                       .take(1)
-                      .map((item) => Expanded(child: _buildCard(item)))
+                      .map((item) => Expanded(child: _buildTempCard(item)))
                       .toList(),
                 ),
               ],
@@ -202,29 +206,52 @@ class SketchHomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(CardItem item) {
-    return Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        side: BorderSide(color: Colors.black, width: 1),
-      ),
-      elevation: 4,
-      child: Column(
-        children: [
-          item.isLocal
-              ? Image.asset(item.imageUrl, width: 100, height: 100, fit: BoxFit.cover)
-              : Image.network(item.imageUrl, width: 100, height: 100, fit: BoxFit.cover),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              item.title,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+  Widget _buildTempCard(CardItem item) {
+    return SizedBox(
+      height: 180, // 카드 높이
+      child: Card(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          side: BorderSide(color: Colors.black, width: 1),
+        ),
+        elevation: 4,
+        child: Column( // 세로 방향 배치
+          mainAxisAlignment: MainAxisAlignment.center, // 세로 중앙 정렬
+          crossAxisAlignment: CrossAxisAlignment.center, // 가로 중앙 정렬
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: item.isLocal
+                  ? Image.asset(
+                item.imageUrl,
+                width: 90, // 이미지 너비
+                height: 90, // 이미지 높이
+                fit: BoxFit.contain, // 이미지가 카드 안에 맞게 조정
+              )
+                  : Image.network(
+                item.imageUrl,
+                width: 90,
+                height: 90,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-        ],
+            SizedBox(height: 8), // 이미지와 텍스트 사이 간격
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                item.title,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center, // 텍스트 가로 중앙 정렬
+                maxLines: 2, // 텍스트를 두 줄로 제한
+                overflow: TextOverflow.ellipsis, // 텍스트 길 경우 줄임표 추가
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+
 
 }

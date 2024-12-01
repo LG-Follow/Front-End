@@ -36,7 +36,7 @@ class SongViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final url = _buildUri('/song/users/10');
+      final url = _buildUri('/song/user/1');
       final response = await http.get(
         url,
         headers: {
@@ -44,8 +44,10 @@ class SongViewModel extends ChangeNotifier {
           'ngrok-skip-browser-warning': '69420',
         },
       );
+      print(response.statusCode);
 
       if (response.statusCode == 200) {
+        print(response.body);
         List<dynamic> data = json.decode(response.body);
 
         // 서버에서 받은 데이터 매핑
@@ -69,7 +71,7 @@ class SongViewModel extends ChangeNotifier {
 
     // 서버에 재생 요청
     try {
-      final url = _buildUri('/song/play/10');
+      final url = _buildUri('/song/play/20');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},

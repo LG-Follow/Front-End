@@ -13,27 +13,35 @@ class SketchViewModel extends ChangeNotifier {
   }
 
   List<CardItem> quickSelectItems = [];
+  bool isFetching = false;
 
   List<CardItem> tempStorageItems = [
     CardItem(title: '24.11.25', imageUrl: 'assets/images/temp_image.png', isLocal: true),
   ];
 
   Future<void> fetchQuickSelectItems() async {
+    if (isFetching) return; // 이미 데이터를 가져오는 중이면 중단
+    isFetching = true;
+    notifyListeners();
+
     try {
-      final response = await http.get(_buildUri('/song/users/1'));
+      final response = await http.get(_buildUri('/song/user/1'));
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         quickSelectItems = data.take(3).map((item) {
           return CardItem.fromJson(item);
         }).toList();
-        notifyListeners();
       } else {
         throw Exception('Failed to load quick select items');
       }
     } catch (e) {
       print('Error fetching quick select items: $e');
+    } finally {
+      isFetching = false;
+      notifyListeners();
     }
   }
 }
+
 
 

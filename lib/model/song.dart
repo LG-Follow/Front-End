@@ -23,8 +23,8 @@ class Song {
       id: json['id'],
       title: json['title'],
       duration: json['duration'],
-      songUrl: json['songUrl'],
-      imageUrl: json['imageUrl'],
+      songUrl: json['song_url'],
+      imageUrl: json['image_url'],
       createdAt: DateTime.parse(json['createdAt']), // JSON의 날짜를 DateTime으로 변환
     );
   }

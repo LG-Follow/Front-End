@@ -128,11 +128,16 @@ class DrawingView extends StatelessWidget {
                           children: viewModel.uploadedImages.map((image) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image.file(
-                                image,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0), // 카드의 둥근 모서리와 일치하도록 설정
+                                child: SizedBox(
+                                  width: 100, // 적절한 크기 지정
+                                  height: 100,
+                                  child: Image.file(
+                                    image,
+                                    fit: BoxFit.cover, // 이미지가 카드의 크기를 꽉 채우도록 설정
+                                  ),
+                                ),
                               ),
                             );
                           }).toList(),

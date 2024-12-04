@@ -75,7 +75,6 @@ class SongViewModel extends ChangeNotifier {
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'songId': song.id}),
       );
 
       if (response.statusCode == 200) {

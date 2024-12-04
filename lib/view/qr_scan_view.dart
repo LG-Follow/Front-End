@@ -66,8 +66,7 @@ class _QRScanViewState extends State<QRScanView> {
       if (!isScanned) {
         isScanned = true;
 
-        // 임의의 scannedCode 값을 설정
-        final scannedCode = 'speaker'; // ID 'speaker'로 설정
+        final scannedCode = 'speaker';
 
         // ViewModel에서 일치하는 기기 확인 및 추가
         _processScannedCode(scannedCode);
@@ -106,11 +105,11 @@ class _QRScanViewState extends State<QRScanView> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('스캔 완료'),
-        content: Text('$deviceName이(가) 추가되었습니다.'),
+        content: Text('$deviceName 추가되었습니다.'),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // 다이얼로그 닫기
+              Navigator.of(context).pop();
               Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false); // 홈 화면으로 이동
             },
             child: Text('확인'),

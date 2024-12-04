@@ -24,16 +24,22 @@ class SongListView extends StatelessWidget {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body: Consumer<SongViewModel>(
-        builder: (context, viewModel, child) {
-          if (viewModel.isLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          return Column(
-            children: [
-              Expanded(
-                child: GridView.builder(
+      body: Column(
+        children: [
+          Expanded(
+            child: Consumer<SongViewModel>(
+              builder: (context, viewModel, child) {
+                if (viewModel.isLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (viewModel.songs.isEmpty) {
+                  return Center(
+                    child: Text(
+                      '노래를 불러오지 못했습니다. 다시 시도해주세요.',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  );
+                }
+                return GridView.builder(
                   padding: EdgeInsets.all(16),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
@@ -47,7 +53,11 @@ class SongListView extends StatelessWidget {
                     String imageUrl = song.imageUrl;
 
                     return GestureDetector(
-                      onTap: () => viewModel.selectSong(song, imageUrl),
+                      onTap: () {
+                        if (song.songUrl.isNotEmpty && imageUrl.isNotEmpty) {
+                          viewModel.selectSong(song, imageUrl);
+                        }
+                      },
                       child: Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -74,6 +84,9 @@ class SongListView extends StatelessWidget {
                               height: 50,
                               width: 50,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(Icons.image_not_supported, size: 50, color: Colors.grey);
+                              },
                             ),
                             SizedBox(height: 8),
                             Text(
@@ -82,7 +95,7 @@ class SongListView extends StatelessWidget {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              song.duration,
+                              '${song.duration.inMinutes}:${(song.duration.inSeconds % 60).toString().padLeft(2, '0')}',
                               style: TextStyle(fontSize: 10, color: Colors.grey),
                             ),
                           ],
@@ -90,12 +103,14 @@ class SongListView extends StatelessWidget {
                       ),
                     );
                   },
-                ),
-              ),
-              _buildBottomBar(viewModel),
-            ],
-          );
-        },
+                );
+              },
+            ),
+          ),
+          Consumer<SongViewModel>(
+            builder: (context, viewModel, child) => _buildBottomBar(viewModel),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -103,22 +118,10 @@ class SongListView extends StatelessWidget {
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black,
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.black),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard, color: Colors.black),
-            label: '디스커버',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.report, color: Colors.black),
-            label: '리포트',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu, color: Colors.black),
-            label: '메뉴',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: '디스커버'),
+          BottomNavigationBarItem(icon: Icon(Icons.report), label: '리포트'),
+          BottomNavigationBarItem(icon: Icon(Icons.menu), label: '메뉴'),
         ],
       ),
     );
@@ -147,13 +150,12 @@ class SongListView extends StatelessWidget {
               width: 50,
               height: 50,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Icon(Icons.image_not_supported, size: 50, color: Colors.grey);
+              },
             )
           else
-            Container(
-              width: 50,
-              height: 50,
-              color: Colors.transparent,
-            ),
+            SizedBox(width: 50, height: 50),
           SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

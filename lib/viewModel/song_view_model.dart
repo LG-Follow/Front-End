@@ -12,6 +12,7 @@ class SongViewModel extends ChangeNotifier {
   String? _currentSongImage; // 마지막 선택된 이미지 URL 유지
   bool _isPlaying = false;
   bool _isLoading = true;
+  bool _isFetching = false;
 
   final AudioPlayer _audioPlayer = AudioPlayer(); // 오디오 플레이어 인스턴스
   final String? baseUrl = dotenv.env['BASEURL'];
@@ -32,6 +33,9 @@ class SongViewModel extends ChangeNotifier {
 
   // 서버에서 노래 및 그림 목록을 가져오는 함수
   Future<void> fetchSongs() async {
+    if (_isFetching) return; // 이미 요청 중이면 중단
+    _isFetching = true;
+
     _isLoading = true;
     notifyListeners();
 
@@ -42,32 +46,37 @@ class SongViewModel extends ChangeNotifier {
         headers: {
           'Content-Type': 'application/json',
           'ngrok-skip-browser-warning': '69420',
+          'Cache-Control': 'no-cache',
         },
       );
-      print(response.statusCode);
+
+      print('Request URL: $url');
+      print('Response Status: ${response.statusCode}');
+      print('Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
-        print(response.body);
         List<dynamic> data = json.decode(response.body);
-
-        // 서버에서 받은 데이터 매핑
         _songs = data.map((json) => Song.fromJson(json)).toList();
-        _songs.sort((a, b) => a.createdAt.compareTo(b.createdAt)); // 정렬
       } else {
-        throw Exception('Failed to load songs');
+        throw Exception('Failed to load songs: ${response.statusCode}');
       }
     } catch (e) {
       print("Failed to fetch songs: $e");
     } finally {
       _isLoading = false;
+      _isFetching = false; // 요청이 끝나면 상태 초기화
       notifyListeners();
     }
   }
+
 
   // 노래 선택 및 서버에 재생 요청
   Future<void> selectSong(Song song, String imageUrl) async {
     _currentSong = song;
     _currentSongImage = imageUrl;
+
+    // UI 즉시 업데이트
+    notifyListeners();
 
     // 서버에 재생 요청
     try {
@@ -90,7 +99,7 @@ class SongViewModel extends ChangeNotifier {
       print("Failed to play song: $e");
     }
 
-    notifyListeners();
+    notifyListeners(); // 서버 요청 후 상태 갱신
   }
 
   // 재생/일시정지 상태를 토글하는 함수

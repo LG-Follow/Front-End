@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewModel/sketch_home_view_model.dart';
-import '../model/sketch_home.dart';
 import '../view/song_list_view.dart';
 import '../view/Drawing_view.dart';
-import 'Temp_view.dart';
+import '../model/sketch_home.dart';
 
 class SketchHomeView extends StatelessWidget {
   @override
@@ -13,7 +12,9 @@ class SketchHomeView extends StatelessWidget {
 
     // 초기 데이터 로드
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      viewModel.fetchQuickSelectItems();
+      if (!viewModel.isFetching) {
+        viewModel.fetchQuickSelectItems();
+      }
     });
 
     return Scaffold(
@@ -93,7 +94,7 @@ class SketchHomeView extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TempDrawing()),
+                      MaterialPageRoute(builder: (context) => DrawingView()),
                     );
                   },
                   child: Row(
@@ -252,6 +253,4 @@ class SketchHomeView extends StatelessWidget {
       ),
     );
   }
-
-
 }

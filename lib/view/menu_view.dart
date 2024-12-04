@@ -50,45 +50,48 @@ class MenuView extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Container(
-              width: MediaQuery.of(context).size.width - 8.0, // 8px 만큼 줄임
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Text('멤버십', style: TextStyle(color: Colors.black)),
-                      ),
-                      _buildDivider(),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text('가입하기', style: TextStyle(color: Colors.black)),
-                      ),
-                    ],
-                  ),
-                  _buildDivider(isMainDivider: true),
-                  Row(
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Text('Q 리워드', style: TextStyle(color: Colors.black)),
-                      ),
-                      _buildDivider(),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text('가입하기', style: TextStyle(color: Colors.black)),
-                      ),
-                    ],
-                  ),
-                ],
+              child: FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {},
+                          child: Text('멤버십', style: TextStyle(color: Colors.black)),
+                        ),
+                        _buildDivider(),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text('가입하기', style: TextStyle(color: Colors.black)),
+                        ),
+                      ],
+                    ),
+                    _buildDivider(isMainDivider: true),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {},
+                          child: Text('Q 리워드', style: TextStyle(color: Colors.black)),
+                        ),
+                        _buildDivider(),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text('가입하기', style: TextStyle(color: Colors.black)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
+
+
 
             SizedBox(height: 16),
 

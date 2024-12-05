@@ -1,5 +1,3 @@
-// 그림 그리는 기능과 서버로 전송하는 기능 + 파일첨부 기능 원하는 사진 전송
-// 그림 관련 상태 관리, 이미지 업로드, UI 업데이트
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'dart:io';
@@ -95,26 +93,41 @@ class DrawingViewModel with ChangeNotifier {
 
       final url = _buildUri('/image/upload');
       print(url);
+
       final request = http.MultipartRequest('POST', url)
         ..fields['user_id'] = '1' // user_id 필드 추가
         ..files.add(
           http.MultipartFile.fromBytes(
-            'image',
+            'drawing',
             pngBytes,
             filename: 'drawing.png',
             contentType: MediaType('image', 'png'),
           ),
         );
 
+      // 업로드된 이미지를 PNG로 변환하여 첨부
+      for (final imageFile in _uploadedImages) {
+        final imageBytes = await imageFile.readAsBytes();
+        request.files.add(
+          http.MultipartFile.fromBytes(
+            'uploaded_image',
+            imageBytes,
+            filename: imageFile.path.split('/').last,
+            contentType: MediaType('image', 'png'),
+          ),
+        );
+      }
+
       final response = await request.send();
 
       if (response.statusCode == 200) {
-        print("Drawing sent successfully!");
+        print("Drawing and images sent successfully!");
       } else {
-        print("Failed to send drawing: ${response.statusCode}");
+        print("Failed to send drawing and images: ${response.statusCode}");
       }
     } catch (e) {
-      print("Error sending drawing: $e");
+      print("Error sending drawing and images: $e");
     }
   }
 }
+

@@ -18,7 +18,7 @@ class _DrawingViewState extends State<DrawingView> {
       _offsetY = MediaQuery.of(context).size.height; // 화면 아래로 이동
     });
 
-    // 애니메이션이 끝난 후 SketchHomeView로 이동
+
     await Future.delayed(Duration(milliseconds: 500));
     Navigator.pushReplacement(
       context,
@@ -26,7 +26,7 @@ class _DrawingViewState extends State<DrawingView> {
         transitionDuration: Duration(milliseconds: 500),
         pageBuilder: (_, __, ___) => SketchHomeView(),
         transitionsBuilder: (_, animation, __, child) {
-          return FadeTransition(opacity: animation, child: child); // 페이드 전환
+          return FadeTransition(opacity: animation, child: child);
         },
       ),
     );
@@ -37,15 +37,15 @@ class _DrawingViewState extends State<DrawingView> {
     final viewModel = Provider.of<DrawingViewModel>(context);
 
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500), // 애니메이션 지속 시간
-      transform: Matrix4.translationValues(0, _offsetY, 0), // 수직 이동
+      duration: Duration(milliseconds: 500),
+      transform: Matrix4.translationValues(0, _offsetY, 0),
       curve: Curves.easeInOut, // 부드러운 애니메이션 곡선
-      decoration: BoxDecoration(color: Colors.white), // 그림자 방지를 위해 배경색 설정
+      decoration: BoxDecoration(color: Colors.white),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          elevation: 0, // 그림자 제거
+          elevation: 0,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.pop(context),

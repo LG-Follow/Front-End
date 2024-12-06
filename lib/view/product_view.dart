@@ -54,7 +54,7 @@ class ProductView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            // 하나의 카드 내에서 필터된 제품 목록 표시
+
             Expanded(
               child: Card(
                 color: Colors.white,
@@ -87,10 +87,10 @@ class ProductView extends StatelessWidget {
                             },
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50.0), // 양쪽 여백 추가
+                            padding: const EdgeInsets.symmetric(horizontal: 50.0),
                             child: Container(
                               height: 1,
-                              color: Colors.grey[300], // 구분선 색상 설정
+                              color: Colors.grey[300],
                             ),
                           ),
                         ],

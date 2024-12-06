@@ -110,7 +110,7 @@ class _QRScanViewState extends State<QRScanView> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false); // 홈 화면으로 이동
+              Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
             },
             child: Text('확인'),
           ),
@@ -128,8 +128,8 @@ class _QRScanViewState extends State<QRScanView> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // 다이얼로그 닫기
-              Navigator.pop(context); // 이전 화면으로 이동
+              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
             child: Text('확인'),
           ),

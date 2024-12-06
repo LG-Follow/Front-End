@@ -209,7 +209,7 @@ class SketchHomeView extends StatelessWidget {
 
   Widget _buildTempCard(CardItem item) {
     return SizedBox(
-      height: 180, // 카드 높이
+      height: 180,
       child: Card(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -217,18 +217,18 @@ class SketchHomeView extends StatelessWidget {
           side: BorderSide(color: Colors.black, width: 1),
         ),
         elevation: 4,
-        child: Column( // 세로 방향 배치
-          mainAxisAlignment: MainAxisAlignment.center, // 세로 중앙 정렬
-          crossAxisAlignment: CrossAxisAlignment.center, // 가로 중앙 정렬
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: item.isLocal
                   ? Image.asset(
                 item.imageUrl,
-                width: 90, // 이미지 너비
-                height: 90, // 이미지 높이
-                fit: BoxFit.contain, // 이미지가 카드 안에 맞게 조정
+                width: 90,
+                height: 90,
+                fit: BoxFit.contain,
               )
                   : Image.network(
                 item.imageUrl,
@@ -237,15 +237,15 @@ class SketchHomeView extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             ),
-            SizedBox(height: 8), // 이미지와 텍스트 사이 간격
+            SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 item.title,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center, // 텍스트 가로 중앙 정렬
-                maxLines: 2, // 텍스트를 두 줄로 제한
-                overflow: TextOverflow.ellipsis, // 텍스트 길 경우 줄임표 추가
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

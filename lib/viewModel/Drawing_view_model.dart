@@ -95,7 +95,7 @@ class DrawingViewModel with ChangeNotifier {
       print(url);
 
       final request = http.MultipartRequest('POST', url)
-        ..fields['user_id'] = '1' // user_id 필드 추가
+        ..fields['user_id'] = '1'
         ..files.add(
           http.MultipartFile.fromBytes(
             'drawing',

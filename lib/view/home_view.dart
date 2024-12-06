@@ -153,10 +153,10 @@ class HomeView extends StatelessWidget {
         Navigator.pushReplacementNamed(context, '/home');
         break;
       case 1:
-      // 여기에 디스커버 페이지 추가
+
         break;
       case 2:
-      // 여기에 리포트 페이지 추가
+
         break;
       case 3:
         Navigator.pushReplacementNamed(context, '/menu');

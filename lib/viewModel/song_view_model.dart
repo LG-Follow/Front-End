@@ -14,7 +14,7 @@ class SongViewModel extends ChangeNotifier {
   bool _isLoading = true;
   bool _isFetching = false;
 
-  final AudioPlayer _audioPlayer = AudioPlayer(); // 오디오 플레이어 인스턴스
+  final AudioPlayer _audioPlayer = AudioPlayer();
   final String? baseUrl = dotenv.env['BASEURL'];
 
   Uri _buildUri(String endpoint) {
@@ -75,7 +75,7 @@ class SongViewModel extends ChangeNotifier {
     _currentSong = song;
     _currentSongImage = imageUrl;
 
-    // UI 즉시 업데이트
+
     notifyListeners();
 
     // 서버에 재생 요청

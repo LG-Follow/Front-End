@@ -7,7 +7,7 @@ class Song {
   final String description;
   final String songUrl;
   final double size;
-  final Duration duration; // Duration 타입
+  final Duration duration;
   final DateTime createdAt;
   final String imageUrl;
 
@@ -29,7 +29,7 @@ class Song {
       description: json['description'] ?? '',
       songUrl: json['song_url'] ?? '',
       size: (json['size'] ?? 0).toDouble(),
-      duration: parseDuration(json['duration'] ?? '00:00:00'), // 문자열 -> Duration 변환
+      duration: parseDuration(json['duration'] ?? '00:00:00'),
       createdAt: DateTime.parse(json['createdAt'] ?? DateTime.now().toIso8601String()),
       imageUrl: json['image_url'] ?? 'assets/images/temp_image.png',
     );

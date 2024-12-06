@@ -16,7 +16,7 @@ class _SplashScreenSoundState extends State<SplashScreenSound> {
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SketchHomeView()), // LoginScreen으로 이동
+        MaterialPageRoute(builder: (context) => SketchHomeView()),
       );
     });
   }
@@ -30,7 +30,7 @@ class _SplashScreenSoundState extends State<SplashScreenSound> {
           Expanded(
             child: Center(
               child: Transform.translate(
-                offset: Offset(0, -50), // 중앙보다 50픽셀 위로 이동
+                offset: Offset(0, -50),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

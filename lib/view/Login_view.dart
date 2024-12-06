@@ -19,9 +19,9 @@ class LoginView extends StatelessWidget {
           children: [
             SizedBox(height: 50,),
             Align(
-              alignment: Alignment.centerLeft, // Image.asset을 좌측 정렬
+              alignment: Alignment.centerLeft,
               child: Image.asset(
-                'assets/images/lg_follow_logo.png', // LG 로고 이미지 경로
+                'assets/images/lg_follow_logo.png',
                 width: 150,
                 height: 50,
               ),
@@ -75,7 +75,7 @@ class LoginView extends StatelessWidget {
                 minimumSize: Size(double.infinity, 45),
               ),
               onPressed: () {
-                // 유효성 검사 후 홈 화면으로 이동
+
                 if (viewModel.validateCredentials()) {
                   Navigator.pushReplacement(
                     context,
@@ -102,7 +102,7 @@ class LoginView extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black, // 텍스트 색상을 검정으로 설정
+                    foregroundColor: Colors.black,
                   ),
                   child: Text('아이디 찾기'),
                 ),
@@ -110,7 +110,7 @@ class LoginView extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black, // 텍스트 색상을 검정으로 설정
+                    foregroundColor: Colors.black,
                   ),
                   child: Text('비밀번호 재설정'),
                 ),
@@ -118,7 +118,7 @@ class LoginView extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.black, // 텍스트 색상을 검정으로 설정
+                    foregroundColor: Colors.black,
                   ),
                   child: Text(
                     '회원가입',

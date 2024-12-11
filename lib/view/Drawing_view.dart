@@ -80,7 +80,7 @@ class _DrawingViewState extends State<DrawingView> {
                   ),
                   SizedBox(width: 8),
                   ElevatedButton(
-                    onPressed: () => _onSend(context), // 전송하기 동작
+                    onPressed: () => viewModel.sendDrawing(), // 전송하기 동작
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                     ),

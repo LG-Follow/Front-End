@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import '../model/Point.dart';
 import '../model/drawing_painter.dart';
+import 'dart:convert';
+
 
 class DrawingViewModel with ChangeNotifier {
   List<List<Point>> _paths = [];
@@ -17,9 +19,12 @@ class DrawingViewModel with ChangeNotifier {
   double _currentStrokeWidth = 2.0;
 
   List<List<Point>> get paths => _paths;
+
   List<File> get uploadedImages => _uploadedImages; // 업로드된 사진 목록 Getter
   bool get isDrawing => _isDrawing;
+
   Color get currentColor => _currentColor;
+
   double get currentStrokeWidth => _currentStrokeWidth;
 
   final String? baseUrl = dotenv.env['BASEURL'];
@@ -87,38 +92,49 @@ class DrawingViewModel with ChangeNotifier {
       painter.paint(canvas, size);
 
       final picture = pictureRecorder.endRecording();
-      final image = await picture.toImage(size.width.toInt(), size.height.toInt());
+      final image = await picture.toImage(
+          size.width.toInt(), size.height.toInt());
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      final pngBytes = byteData!.buffer.asUint8List();
+      if (byteData == null) {
+        print("Error: Byte data is null");
+        return;
+      }
 
+      final pngBytes = byteData.buffer.asUint8List();
       final url = _buildUri('/image/upload');
-      print(url);
+      print("Sending to URL: $url");
 
       final request = http.MultipartRequest('POST', url)
         ..fields['user_id'] = '1'
         ..files.add(
           http.MultipartFile.fromBytes(
-            'drawing',
+            'image',
             pngBytes,
             filename: 'drawing.png',
             contentType: MediaType('image', 'png'),
           ),
         );
 
-      // 업로드된 이미지를 PNG로 변환하여 첨부
       for (final imageFile in _uploadedImages) {
         final imageBytes = await imageFile.readAsBytes();
         request.files.add(
           http.MultipartFile.fromBytes(
             'uploaded_image',
             imageBytes,
-            filename: imageFile.path.split('/').last,
+            filename: imageFile.path
+                .split('/')
+                .last,
             contentType: MediaType('image', 'png'),
           ),
         );
       }
 
       final response = await request.send();
+      print("Request sent. Status code: ${response.statusCode}");
+
+      response.stream.transform(utf8.decoder).listen((value) {
+        print("Response body: $value");
+      });
 
       if (response.statusCode == 200) {
         print("Drawing and images sent successfully!");
@@ -130,4 +146,3 @@ class DrawingViewModel with ChangeNotifier {
     }
   }
 }
-
